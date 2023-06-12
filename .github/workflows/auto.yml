@@ -1,0 +1,32 @@
+name: auto
+
+on: 
+  schedule:
+    - cron: '1 16 * * *'  #北京时间00:01
+  workflow_dispatch:
+  
+env:
+  ACCESS_TOKEN:  ${{ secrets.ACCESS_TOKEN }}
+  PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}  
+
+jobs:
+  run-python-file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Python 
+        uses: actions/setup-python@v3
+        with: 
+          python-version: '3.10'
+          
+      - name: request
+        run: pip install requests
+  
+      - name: freeze 
+        run: pip freeze > requirements.txt
+      - name: Install dependencies 
+        run: pip install -r requirements.txt 
+      - name: Run your Python script 
+        run: python main.py
