@@ -74,19 +74,14 @@ def main():
 
     # 抽奖
     luckydraw_headers = {
-        'Host': 'api.newhigh.net',
-        'Content-Type': 'text/plain;charset=UTF-8',
-        'Origin': 'https://luckydraw-h5.newhigh.net',
-        'Accept-Language': 'zh-CN,zh-Hans;q=0.9',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'Connection': 'keep-alive',
-        'Accept': '*/*',
-        'User-Agent': ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
-                       '(KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36'),
-        'Referer': 'https://luckydraw-h5.newhigh.net/',
-        'access_token': access_token,
-        'Content-Length': '65'
+        'Content-Type': 'text/html',
+        'access_token': access_token
     }
+        
+    luckydraw_get_url = f"https://api.newhigh.net/monetizing/luckydraw/v2?front_channel_name=IOS&school_id={school_id}"
+
+    luckydraw_get_response = requests.get(luckydraw_get_url, headers=luckydraw_headers)
+    luckydraw_get_data = luckydraw_get_response.json()
     
     luckydraw_payload = {
      "front_channel_name": "IOS",
