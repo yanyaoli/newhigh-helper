@@ -2,7 +2,6 @@ import requests
 import json
 import os
 
-# 定义常量
 USER_INFO_URL = "http://api.newhigh.net/user/info"
 SIGNIN_URL = 'https://api.newhigh.net/user/signin'
 VIDEO_URL = 'https://api.newhigh.net/monetizing/fishcoin/obtain/v2'
@@ -13,7 +12,6 @@ def main():
     access_token = os.environ["ACCESS_TOKEN"]
     pushplus_token = os.environ["PUSHPLUS_TOKEN"]
 
-    # 用户信息
     user_info_headers = {
         'Content-Type': 'text/html',
         'Cookie': f"access_token={access_token}"
@@ -21,7 +19,6 @@ def main():
     user_info_response = requests.get(USER_INFO_URL, headers=user_info_headers)
     user_info_data = user_info_response.json()
     
-    # 判断响应的 code 是否为 "10002"
     if user_info_data.get("code") == "10002":
         print(f"access_token无效或已过期，请重新填写")
         # PushPlus 微信通知推送
@@ -40,7 +37,6 @@ def main():
         nickname = user_info_response.json().get("body", {}).get("nickname")
         school_id = user_info_response.json().get("body", {}).get("school", {}).get("school_id")
 
-    # 签到请求
     signin_headers = {
         'Content-Type': 'application/json',
         'Cookie': f"access_token={access_token}"
@@ -53,7 +49,6 @@ def main():
     signin_points = signin_data.get("body", {}).get("points")
     signin_continuoussign = signin_data.get("body", {}).get("continuoussign")
 
-    # 视频奖励
     video_headers = {
         'Content-Type': 'application/json',
         'Cookie': f"access_token={access_token}"
@@ -65,17 +60,18 @@ def main():
         "front_channel_name" : "IOS",
     }
 
-    count = 0 # 计数器
+    count = 0 
     while count < 2: 
         video_response = requests.post(VIDEO_URL, headers=video_headers, data=json.dumps(video_payload))
         video_data = video_response.json()
         videon_points = video_data.get("body", {}).get("total_obtained_points")
-        count += 1 # 计数器加一
+        count += 1 
 
-    # 抽奖
+    luckydraw_access_token = access_token.strip('"')
+    
     luckydraw_headers = {
         'Content-Type': 'text/html',
-        'access_token': access_token
+        'access_token': luckydraw_access_token
     }
         
     luckydraw_get_url = f"https://api.newhigh.net/monetizing/luckydraw/v2?front_channel_name=IOS&school_id={school_id}"
@@ -93,12 +89,11 @@ def main():
     luckydraw_data = luckydraw_response.json()
     luckydraw_message = luckydraw_data.get("body", {}).get("prize", {}).get("name")
 
-    # 现有鱼籽
     user_info_response = requests.get(USER_INFO_URL, headers=user_info_headers)
     user_info_data = user_info_response.json()
     total_points = user_info_response.json().get("body", {}).get("points")
 
-    # PushPlus 微信通知推送
+    
     pushplus_payload = {
         'token': pushplus_token,
         'title': '流海云印每日签到',
