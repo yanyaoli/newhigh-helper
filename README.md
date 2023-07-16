@@ -1,9 +1,10 @@
 # 流海云印每日任务助手
-- 每日自动签到+抽奖+广告奖励+PUSHPLUS通知
+- 每日签到 + 每日抽奖 + 广告视频奖励 + PUSHPLUS推送
 - 运行时间：北京时间上午00:01
+- 支持多账号任务 【多个Access_token之间用 `,` 隔开】
 
 ## 如何使用
-1. [Fork本仓库](https://github.com/ViiAyil/newhigh-helper)
+1. [Fork本仓库](https://github.com/viiayil/newhigh-helper)
 
 2. 选择Fork后的仓库 -> **Settings** -> **Secrets and Variables** -> **Action** -> **New repository secret**, 添加Secrets变量如下:
 
@@ -29,4 +30,4 @@
 > - 安卓免费抓包软件-HttpCanary
 
 ## 许可
-[MIT](https://github.com/ooyq/newhigh-helper/blob/main/LICENSE)
+[MIT](https://github.com/viiayil/newhigh-helper/blob/main/LICENSE)
