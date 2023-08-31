@@ -45,7 +45,7 @@ def main():
             'Cookie': f"access_token={access_token}"
         }
 
-        signin_payload = {"front_channel_name": "IOS"}
+        signin_payload = {"front_channel_name": "WECHAT_APPLET"}
 
         signin_response = requests.post(SIGNIN_URL, headers=signin_headers, data=json.dumps(signin_payload))
         signin_data = signin_response.json()
