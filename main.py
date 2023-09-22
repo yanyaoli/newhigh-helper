@@ -60,7 +60,7 @@ def main():
         video_payload ={
             "task_id" : "2",
             "school_id" : school_id,
-            "front_channel_name" : "IOS",
+            "front_channel_name" : "WECHAT_APPLET",
         }
 
         count = 0
@@ -77,13 +77,13 @@ def main():
             'access_token': luckydraw_access_token
         }
 
-        luckydraw_get_url = f"https://api.newhigh.net/monetizing/luckydraw/v2?front_channel_name=IOS&school_id={school_id}"
+        luckydraw_get_url = f"https://api.newhigh.net/monetizing/luckydraw/v2?front_channel_name=WECHAT_APPLET&school_id={school_id}"
 
         luckydraw_get_response = requests.get(luckydraw_get_url, headers=luckydraw_headers)
         luckydraw_get_data = luckydraw_get_response.json()
 
         luckydraw_payload = {
-            "front_channel_name": "IOS",
+            "front_channel_name": "WECHAT_APPLET",
             "school_id": school_id,
             "lucky_draw_id": 37
         }
